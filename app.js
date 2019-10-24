@@ -2,34 +2,41 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 
-app.use(bodyParser.urlencoded({extended: true})); 
+app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
-var campgrounds = [ 
-    {name: "New Symrna Beach", image: "https://ccsearch.creativecommons.org/photos/32b70627-867f-4980-b85f-45b75919b779"},
-    {name: "PlayaLinda", image: "https://farm6.staticflickr.com/5542/12121979263_6bfe23485e_b.jpg"}
-]
 
-app.get("/", (req, res) => {
-res.render("landing");
+var campgrounds = [
+        {name: "Salmon Creek", image: "https://farm9.staticflickr.com/8442/7962474612_bf2baf67c0.jpg"},
+        {name: "Granite Hill", image: "https://farm1.staticflickr.com/60/215827008_6489cd30c3.jpg"},
+        {name: "Mountain Goat's Rest", image: "https://farm7.staticflickr.com/6057/6234565071_4d20668bbd.jpg"},
+        {name: "Salmon Creek", image: "https://farm9.staticflickr.com/8442/7962474612_bf2baf67c0.jpg"},
+        {name: "Granite Hill", image: "https://farm1.staticflickr.com/60/215827008_6489cd30c3.jpg"},
+        {name: "Mountain Goat's Rest", image: "https://farm7.staticflickr.com/6057/6234565071_4d20668bbd.jpg"},
+        {name: "Salmon Creek", image: "https://farm9.staticflickr.com/8442/7962474612_bf2baf67c0.jpg"},
+        {name: "Granite Hill", image: "https://farm1.staticflickr.com/60/215827008_6489cd30c3.jpg"},
+        {name: "Mountain Goat's Rest", image: "https://farm7.staticflickr.com/6057/6234565071_4d20668bbd.jpg"}
+];
+    
+app.get("/", function(req, res){
+    res.render("landing");
 });
 
-app.get("/campgrounds", (req, res) => {
-
-res.render("campgrounds", {campgrounds:campgrounds});
-
+app.get("/campgrounds", function(req, res){
+    res.render("campgrounds",{campgrounds:campgrounds});
 });
 
-app.post("/campgrounds", (req, res) => {
-var name = req.body.name;
-var image = req.body.image; 
-var newCampGround = {name: name, image: image}
-campgrounds.push(newCampGround);
-res.redirect("campgrounds"); 
+app.post("/campgrounds", function(req, res){
+    // get data from form and add to campgrounds array
+    var name = req.body.name;
+    var image = req.body.image;
+    var newCampground = {name: name, image: image}
+    campgrounds.push(newCampground);
+    //redirect back to campgrounds page
+    res.redirect("/campgrounds");
+});
 
-}); 
-
-app.get("/campgrounds/new", (req, res) => {
-res.render("new.ejs"); 
+app.get("/campgrounds/new", function(req, res){
+   res.render("new.ejs"); 
 });
 
 app.listen(3000, () => {
