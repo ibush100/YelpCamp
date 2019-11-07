@@ -16,10 +16,27 @@ var campgroundSchema = new mongoose.Schema({
  });
  
  var Campground = mongoose.model("Campground", campgroundSchema);
- 
+
+Campground.create(
+     {
+         name: "Granite Hill", 
+         image: "https://farm1.staticflickr.com/60/215827008_6489cd30c3.jpg",
+         description: "This is a huge granite hill, no bathrooms.  No water. Beautiful granite!"
+         
+     },
+     function(err, campground){
+      if(err){
+          console.log(err);
+      } else {
+          console.log("NEWLY CREATED CAMPGROUND: ");
+          console.log(campground);
+      }
+    });
+
 app.get("/", function(req, res){
     res.render("landing");
 });
+
 
 app.get("/campgrounds", function(req, res){
     // Get all campgrounds from DB
@@ -52,6 +69,10 @@ app.post("/campgrounds", function(req, res){
 app.get("/campgrounds/new", function(req, res){
    res.render("new.ejs"); 
 });
+
+app.get("/campgrounds/:id", function(req, res) {
+    res.send("THIS WILL BE THE SHOW PAGE")
+   });
 
 app.listen(3000, () => {
 	console.log('server listening on port 3000');
