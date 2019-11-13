@@ -70,9 +70,18 @@ app.get("/campgrounds/new", function(req, res){
    res.render("new.ejs"); 
 });
 
-app.get("/campgrounds/:id", function(req, res) {
-    res.render("show");
-   });
+app.get("/campgrounds/:id", function(req, res){
+    //find the campground with provided ID
+    Campground.findById(req.params.id, function(err, foundCampground){
+        if(err){
+            console.log(err);
+        } else {
+            //render show template with that campground
+            res.render("show", {campground: foundCampground});
+        }
+    });
+})
+
 
 app.listen(3000, () => {
 	console.log('server listening on port 3000');
