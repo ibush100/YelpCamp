@@ -2,6 +2,8 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose", {useUnifiedTopology: true }); 
+var Campground = require("./models/campgrounds"); 
+
 
 mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true,   useUnifiedTopology: true });
 app.use(bodyParser.urlencoded({extended: true}));
@@ -9,13 +11,13 @@ app.set("view engine", "ejs");
 
 
 // SCHEMA SETUP
-var campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
- });
+// var campgroundSchema = new mongoose.Schema({
+//     name: String,
+//     image: String,
+//     description: String
+//  });
  
- var Campground = mongoose.model("Campground", campgroundSchema);
+//  var Campground = mongoose.model("Campground", campgroundSchema);
 
 // Campground.create(
 //      {
